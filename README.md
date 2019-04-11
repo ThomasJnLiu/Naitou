@@ -1,2 +1,2 @@
 # Naitou
-Discord bot for personal use
+Discord bot made with JavaScript for personal use.
