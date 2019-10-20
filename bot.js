@@ -120,5 +120,5 @@ function randomNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const { token } = require('./config.json');
-client.login(token);
+//const { token } = require('./config.json');
+client.login(process.env.token);
