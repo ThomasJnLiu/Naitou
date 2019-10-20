@@ -4,6 +4,7 @@ const client = new Discord.Client()
 client.on('ready', () => {
     // Set bot status to: "Playing with JavaScript"
     client.user.setActivity("Itou", { type: "WATCHING" });
+    console.log("Logged on");
 })
 
 client.on('message', (receivedMessage) => {
