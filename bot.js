@@ -121,7 +121,7 @@ function processCommand(receivedMessage) {
             let hours = Math.floor(totalSeconds / 3600);
             totalSeconds %= 3600;
             let minutes = Math.floor(totalSeconds / 60);
-            let seconds = totalSeconds % 60;
+            let seconds = Math.round(totalSeconds % 60);
 
             receivedMessage.channel.send("Naitou has been running for " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds");
             break;
