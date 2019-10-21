@@ -113,7 +113,19 @@ function processCommand(receivedMessage) {
                 }
                 break;
             }
-    }
+
+            break;
+        case "uptime":
+            let totalSeconds = (client.uptime / 1000);
+            let days = Math.floor(totalSeconds / 86400);
+            let hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = totalSeconds % 60;
+
+            receivedMessage.channel.send("Naitou has been running for " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds");
+            break;
+    }   
     return;
 }
 
@@ -121,5 +133,6 @@ function randomNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-//const { token } = require('./config.json');
-client.login(process.env.token);
+const { token } = require('./config.json');
+client.login(token);
+//client.login(process.env.token);
