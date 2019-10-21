@@ -133,6 +133,6 @@ function randomNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const { token } = require('./config.json');
-client.login(token);
-//client.login(process.env.token);
+// const { token } = require('./config.json');
+// client.login(token);
+client.login(process.env.token);
