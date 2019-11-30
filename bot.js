@@ -15,7 +15,14 @@ client.on('message', (receivedMessage) => {
     if (receivedMessage.content.startsWith("!")) {
         processCommand(receivedMessage);
     }
-})
+});
+
+client.on('guildMemberAdd', member => {
+	const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+	if (!channel) return;
+
+	channel.send(`Welcome to the server, ${member}!`);
+});
 
 function processCommand(receivedMessage) {
     var fullCommand = receivedMessage.content.substring(1);
@@ -105,6 +112,9 @@ function processCommand(receivedMessage) {
 
             receivedMessage.channel.send("Naitou has been running for " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds");
             break;
+        case "join":
+                client.emit('guildMemberAdd', receivedMessage.member);
+            break;
     }   
     return;
 }
@@ -113,6 +123,6 @@ function randomNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// const { token } = require('./config.json');
-// client.login(token);
-client.login(process.env.token);
+const { token } = require('./config.json');
+client.login(token);
+// client.login(process.env.token);
