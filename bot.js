@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const Canvas = require('canvas');
-const client = new Discord.Client()
+const client = new Discord.Client();
+var joinMessageChannel;
 
 client.on('ready', () => {
     // Set bot status to: "Playing with JavaScript"
@@ -37,8 +38,10 @@ const applyText = (canvas, text) => {
 
 // Send image with member's profile pic and message
 client.on('guildMemberAdd', async member => {
-	const channel = member.guild.channels.find(ch => ch.name === 'member-log');
-    if (!channel) return;
+	// const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+    if (!joinMessageChannel){
+        return;
+    } 
     
     // Set a new canvas to the dimensions of 700x250 pixels
 	const canvas = Canvas.createCanvas(700, 250);
@@ -81,7 +84,7 @@ client.on('guildMemberAdd', async member => {
 	// Use helpful Attachment class structure to process the file for you
 	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
     
-	channel.send(`Welcome to the server, ${member}!`, attachment);
+	joinMessageChannel.send(`Welcome to the server, ${member}!`, attachment);
 });
 
 function processCommand(receivedMessage) {
@@ -172,9 +175,13 @@ function processCommand(receivedMessage) {
 
             receivedMessage.channel.send("Naitou has been running for " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds");
             break;
-        case "join":
+        case "joinforce":
                 client.emit('guildMemberAdd', receivedMessage.member);
             break;
+        case "joinmessage":
+            joinMessageChannel = receivedMessage.channel;
+            receivedMessage.channel.send("Join message channel changed.");
+        break;
     }   
     return;
 }
