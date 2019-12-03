@@ -23,6 +23,9 @@ client.on('message', (receivedMessage) => {
             if(messagesplit[i] === "time" && messagesplit[i+1] === "check"){
 
                 var d = new Date();
+                //set timezone
+                //fix later, maybe get user's timezone if possible?
+                d.setHours(d.getHours() - 5);
                 console.log(d.toLocaleTimeString());
                 receivedMessage.channel.send("Time check! The time is currently " + d.toLocaleTimeString());
             }
