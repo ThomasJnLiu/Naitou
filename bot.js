@@ -16,6 +16,18 @@ client.on('message', (receivedMessage) => {
 
     if (receivedMessage.content.startsWith("!")) {
         processCommand(receivedMessage);
+    }else{
+        //check if message contains "time check"
+        var messagesplit = receivedMessage.content.split(" ");
+        for(i = 0; i < messagesplit.length-1; i++){
+            if(messagesplit[i] === "time" && messagesplit[i+1] === "check"){
+
+                var d = new Date();
+                console.log(d.toLocaleTimeString());
+                receivedMessage.channel.send("Time check! The time is currently " + d.toLocaleTimeString());
+            }
+
+        }
     }
 });
 
@@ -190,6 +202,6 @@ function randomNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// const { token } = require('./config.json');
+//  const { token } = require('./config.json');
 // client.login(token);
 client.login(process.env.token);
